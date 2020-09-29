@@ -231,4 +231,5 @@ void reordenarFacturacion(ListaSucursal &lista);//metodo para ver
 */
 int longitud(ListaSucursal &lista);
 
+
 #endif // LISTASUCURSAL_H_INCLUDED
