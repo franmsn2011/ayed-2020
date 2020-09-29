@@ -11,7 +11,17 @@ ResultadoComparacion compararDato(Sucursal dato1, Sucursal dato2) {
         return IGUAL;
     }
 }
-
+ResultadoComparacion compararDatoFacturacion(Sucursal dato1, Sucursal dato2) {
+    if (getFacturacion(dato1) > getFacturacion(dato2)) {
+        return MAYOR;
+    }
+    else if (getFacturacion(dato1) < getFacturacion(dato2)) {
+        return MENOR;
+    }
+    else {
+        return IGUAL;
+    }
+}
 void crearLista(ListaSucursal &lista) {
   lista.primero = finLista();
 }
@@ -187,7 +197,28 @@ PtrNodoListaSucursal insertarDato(ListaSucursal &lista, Sucursal dato) {
     ptrNuevoNodo = adicionarDespues(lista,dato,ptrPrevio);
   return ptrNuevoNodo;
 }
-
+PtrNodoListaSucursal insertarDatoFacturacion(ListaSucursal &lista, Sucursal dato) {
+  PtrNodoListaSucursal ptrPrevio = primero(lista);
+  PtrNodoListaSucursal ptrCursor = primero(lista);
+  PtrNodoListaSucursal ptrNuevoNodo;
+  Sucursal datoCursor;
+  bool ubicado = false;
+  /* recorre la lista buscando el lugar de la inserción */
+  while ((ptrCursor != finLista()) && (! ubicado)) {
+    obtenerDato(lista,datoCursor,ptrCursor);
+    if (compararDatoFacturacion(datoCursor,dato) == MAYOR)
+      ubicado = true;
+    else {
+      ptrPrevio = ptrCursor;
+      ptrCursor = siguiente(lista,ptrCursor);
+    }
+  }
+  if (ptrCursor == primero(lista))
+    ptrNuevoNodo = adicionarPrincipio(lista,dato);
+  else
+    ptrNuevoNodo = adicionarDespues(lista,dato,ptrPrevio);
+  return ptrNuevoNodo;
+}
 void eliminarDato(ListaSucursal &lista, Sucursal dato) {
   /* localiza el dato y luego lo elimina */
   PtrNodoListaSucursal ptrNodo = localizarDato(lista,dato);
@@ -208,7 +239,19 @@ void reordenar(ListaSucursal &lista) {
   }
   eliminarLista(temp);
 }
-
+void reordenarFacturacion(ListaSucursal &lista) {
+  ListaSucursal temp = lista;
+  PtrNodoListaSucursal ptrCursor = primero(temp);
+  crearLista(lista);
+  while ( ptrCursor != finLista() ) {
+        Sucursal dato;
+        obtenerDato(temp,dato,ptrCursor);
+        insertarDatoFacturacion(lista,dato);
+        eliminarNodo(temp,ptrCursor);
+        ptrCursor = primero(temp);
+  }
+  eliminarLista(temp);
+}
 int longitud(ListaSucursal &lista){
   PtrNodoListaSucursal ptrCursor = primero(lista);
   int longitudLista = 0;

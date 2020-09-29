@@ -206,6 +206,7 @@ PtrNodoListaSucursal localizarDato(ListaSucursal &lista, Sucursal dato);
   return: puntero al nodo insertado.
 */
 PtrNodoListaSucursal insertarDato(ListaSucursal &lista, Sucursal dato);
+PtrNodoListaSucursal insertarDatoFacturacion(ListaSucursal &lista, Sucursal dato);//metodo para ver
 
 /*
   pre: la lista fue creada con crearLista().
@@ -221,6 +222,7 @@ void eliminarDato(ListaSucursal &lista, Sucursal dato);
   lista: lista sobre la cual se invoca la primitiva.
 */
 void reordenar(ListaSucursal &lista);
+void reordenarFacturacion(ListaSucursal &lista);//metodo para ver
 
 /*
   pre: la lista fue creada con crearLista().

@@ -38,6 +38,7 @@ int main()
                 //Ranking por facturación
                 system("cls");
                 cout << "Ranking por facturación" << endl << endl;
+                reordenarFacturacion(sucursales);
                 system("pause");
                 break;
             case 2:
